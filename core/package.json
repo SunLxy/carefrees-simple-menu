@@ -1,0 +1,30 @@
+{
+  "name": "@carefrees/simple-menu",
+  "version": "0.0.0",
+  "description": "",
+  "author": "SunLxy <1011771396@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsbb build",
+    "watch": "tsbb watch"
+  },
+  "devDependencies": {
+    "@types/react": "~18.2.15",
+    "@types/react-dom": "~18.2.7",
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0"
+  },
+  "dependencies": {
+    "styled-components": "~6.0.4"
+  }
+}
