@@ -1,0 +1,64 @@
+import React from "react";
+
+
+export interface ReducerStoreType {
+  value?: string
+}
+
+export interface MenuItemChangeProps {
+  /**当前所在层级*/
+  level?: number
+  /**父级路径*/
+  parentPath?: string[]
+}
+
+export interface MenuItemOtherProps {
+  prevClassName?: string
+}
+
+/**每一项渲染*/
+export interface MenuItemProps {
+  /**标题*/
+  title: React.ReactNode
+  /**路径或者唯一值*/
+  path: string
+  /**禁用*/
+  disabled?: boolean
+  /**子集数据*/
+  children?: MenuItemProps[]
+}
+
+/**每一项渲染*/
+export interface MenuChildProps extends MenuItemChangeProps {
+  /**子集数据*/
+  children?: MenuItemProps[]
+}
+
+/**如果是父子集渲染*/
+export interface SubMenuProps extends MenuItemProps {
+
+}
+
+/**菜单*/
+export interface MenuProps {
+  /**选中哪一项的数据*/
+  onChange?: (item: MenuItemProps & MenuItemChangeProps) => void
+  /**
+   * 是否需要点击项展开,默认不需要(false)
+   * @default false
+  */
+  isExpand?: boolean
+  /**菜单渲染数据*/
+  items?: MenuItemProps[]
+  /**当前选中项*/
+  value?: string
+  /**
+   * 默认选中项，
+   * 如果存在 value 值，则默认值不生效
+  */
+  defaultValue?: string
+}
+
+export interface MenuProvider extends Omit<MenuProps, "items"> {
+  children?: React.ReactNode
+}
