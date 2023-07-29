@@ -2,15 +2,14 @@
 import { Provider } from "./hooks"
 import { MenuProps } from "./interface"
 import { MenuChild } from "./MenuChild"
-import "./styles/index.css"
-
+import { MenuBase } from "./styles"
 
 const Menu = (props: MenuProps) => {
-  const { items = [], ...rest } = props
+  const { items = [], className = '', ...rest } = props
   return <Provider {...rest}>
-    <div className="carefrees-menu">
+    <MenuBase className={`carefrees-menu ${className}`}>
       <MenuChild children={items} />
-    </div>
+    </MenuBase>
   </Provider>
 }
 export default Menu

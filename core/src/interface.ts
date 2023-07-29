@@ -14,6 +14,7 @@ export interface MenuItemChangeProps {
 
 export interface MenuItemOtherProps {
   prevClassName?: string
+  isSubMenu?: boolean
 }
 
 /**每一项渲染*/
@@ -57,8 +58,13 @@ export interface MenuProps {
    * 如果存在 value 值，则默认值不生效
   */
   defaultValue?: string
+
+  /**父级是否可选中*/
+  isSubMenuSelect?: boolean
+  /** 组件className*/
+  className?: string
 }
 
-export interface MenuProvider extends Omit<MenuProps, "items"> {
+export interface MenuProvider extends Omit<MenuProps, "items" | "className"> {
   children?: React.ReactNode
 }
