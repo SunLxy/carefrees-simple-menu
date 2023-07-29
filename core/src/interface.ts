@@ -20,13 +20,14 @@ export interface MenuItemOtherProps {
 /**每一项渲染*/
 export interface MenuItemProps {
   /**标题*/
-  title: React.ReactNode
+  title?: React.ReactNode
   /**路径或者唯一值*/
-  path: string
+  path?: string
   /**禁用*/
   disabled?: boolean
   /**子集数据*/
   children?: MenuItemProps[]
+  [x: string]: any
 }
 
 /**每一项渲染*/
@@ -58,11 +59,20 @@ export interface MenuProps {
    * 如果存在 value 值，则默认值不生效
   */
   defaultValue?: string
-
   /**父级是否可选中*/
   isSubMenuSelect?: boolean
   /** 组件className*/
   className?: string
+  /**
+   * 标题取值字段
+   * @default title
+  */
+  labelKey?: string
+  /**
+   * 唯一值取值字段
+   * @default path
+  */
+  valueKey?: string
 }
 
 export interface MenuProvider extends Omit<MenuProps, "items" | "className"> {

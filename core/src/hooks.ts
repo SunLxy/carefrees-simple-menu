@@ -16,12 +16,13 @@ const Context = createContext<MenuProps & ReducerStoreType>({
 })
 
 export const Provider = (props: MenuProvider) => {
-  const { children, value, onChange, isSubMenuSelect = false, ...rest } = props
+  const { children, value, onChange, isSubMenuSelect = false, valueKey = "path", ...rest } = props
 
   /**如果是展开项*/
   const [store, dispatch] = useReducer(reducer, { value })
 
   const onValuesChange = (item: MenuItemProps & MenuItemChangeProps & MenuItemOtherProps) => {
+    const path = item[valueKey]
     /** 如果 onChange 是一个函数的时候 */
     if (typeof onChange === "function") {
       onChange(item)
@@ -30,11 +31,11 @@ export const Provider = (props: MenuProvider) => {
     if (item?.isSubMenu && !isSubMenuSelect) {
       return
     }
-    dispatch({ value: item.path })
+    dispatch({ value: path })
   }
 
   return createElement(Context.Provider, {
-    value: { ...rest, ...store, onChange: onValuesChange, },
+    value: { ...rest, valueKey, ...store, onChange: onValuesChange, },
     children
   })
 }
