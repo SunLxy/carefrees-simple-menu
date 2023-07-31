@@ -3,8 +3,10 @@ import { Provider } from "./hooks"
 import { MenuProps } from "./interface"
 import { MenuChild } from "./MenuChild"
 import { MenuBase } from "./styles"
+import { useMenuStore } from "./store"
+export type { MenuProps }
 
-const Menu = (props: MenuProps) => {
+const SimpleMenu = (props: MenuProps) => {
   const { items = [], className = '', ...rest } = props
   return <Provider {...rest}>
     <MenuBase className={`carefrees-menu ${className}`}>
@@ -12,4 +14,7 @@ const Menu = (props: MenuProps) => {
     </MenuBase>
   </Provider>
 }
-export default Menu
+
+SimpleMenu.useMenuStore = useMenuStore
+
+export default SimpleMenu

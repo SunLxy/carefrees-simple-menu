@@ -1,8 +1,10 @@
 import React from "react";
 
+import type { Store } from "./store"
 
 export interface ReducerStoreType {
   value?: string
+  menuStore?: Store
 }
 
 export interface MenuItemChangeProps {
@@ -52,15 +54,13 @@ export interface MenuProps {
   isExpand?: boolean
   /**菜单渲染数据*/
   items?: MenuItemProps[]
-  /**当前选中项*/
-  value?: string
+  /**初始选中项*/
+  initialValue?: string
   /**
    * 默认选中项，
    * 如果存在 value 值，则默认值不生效
   */
   defaultValue?: string
-  /**父级是否可选中*/
-  isSubMenuSelect?: boolean
   /** 组件className*/
   className?: string
   /**
@@ -73,6 +73,7 @@ export interface MenuProps {
    * @default path
   */
   valueKey?: string
+  menu?: Store
 }
 
 export interface MenuProvider extends Omit<MenuProps, "items" | "className"> {

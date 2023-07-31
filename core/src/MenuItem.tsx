@@ -3,12 +3,17 @@
  */
 import { MenuItemProps, MenuItemChangeProps, MenuItemOtherProps } from "./interface"
 import { MenuItemBase, MenuItemTitleBase } from "./styles"
-import { useMenu } from "./hooks"
+import { useMenu, useUpdata } from "./hooks"
 
 export const MenuItem = (props: MenuItemProps & MenuItemChangeProps & MenuItemOtherProps) => {
-  const { prevClassName = '', level = 0, } = props
-  const { onChange, value, labelKey = "title", valueKey = "path" } = useMenu()
+  const { prevClassName = '', level = 0, parentPath } = props
+  const _update = useUpdata()
+  const { onChange, labelKey = "title", valueKey = "path", menuStore } = useMenu()
   const path = props[valueKey]
+
+  const value = menuStore.getValue()
+  /**注册数据更新*/
+  menuStore.register(path, _update)
 
   const onClick: React.MouseEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault()
