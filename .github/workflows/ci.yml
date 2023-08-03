@@ -18,6 +18,7 @@ jobs:
 
     - run: npm install 
     - run: npm run build 
+    - run: npm run website
 
     - name: Create Tag
       id: create_tag
@@ -55,3 +56,10 @@ jobs:
       with:
         token: ${{ secrets.NPM_TOKEN }}
         package: ./core/package.json
+
+    # 生成案例网站
+    - name: Deploy Website
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./examples/dist
