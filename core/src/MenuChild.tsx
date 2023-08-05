@@ -1,5 +1,5 @@
 
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 import { MenuChildProps, MenuItemOtherProps } from "./interface"
 import { SubMenu } from "./SubMenu"
 import { MenuItem } from "./MenuItem"
@@ -14,14 +14,17 @@ export const MenuChild = (props: MenuChildProps & MenuItemOtherProps) => {
     return (parentPath || []).concat([path])
   }, [parentPath])
 
-  return <MenuChildBase className={`carefrees-menus ${prevClassName}`} >
-    {children.map((item, index) => {
+  const child = useMemo(() => {
+    return children.map((item, index) => {
       const parentPath = getParentPath(item[valueKey])
       const newLevel = level + 1
       if (item && Array.isArray(item.children) && item.children.length) {
         return <SubMenu key={index} {...item} level={newLevel} parentPath={parentPath} />
       }
       return <MenuItem key={index} {...item} level={newLevel} parentPath={parentPath} />
-    })}
+    })
+  }, [children])
+  return <MenuChildBase className={`carefrees-menus ${prevClassName}`} >
+    {child}
   </MenuChildBase>
 }
