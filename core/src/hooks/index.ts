@@ -10,11 +10,13 @@ const Context = createContext<MenuProps & ReducerStoreType>({
   isExpand: false,
   /**选中数据*/
   value: undefined,
+  /**展开数据*/
+  expandData: []
 })
 
 export const Provider = (props: MenuProvider) => {
 
-  const { children, initialValue, onChange, valueKey = "path", menu, ...rest } = props
+  const { children, initialValue, onChange, valueKey = "path", menu, isExpand, ...rest } = props
 
   const [menuStore] = useMenuStore(menu)
 
@@ -31,13 +33,15 @@ export const Provider = (props: MenuProvider) => {
 
     /**点击父级的标题不做数据更新*/
     if (item?.isSubMenu) {
+      if (isExpand)
+        menuStore.toggles(`${newValue}_sub`)
       return
     }
     menuStore.updateValue(newValue)
   }
 
   return createElement(Context.Provider, {
-    value: { ...rest, valueKey, menuStore, onChange: onValuesChange, },
+    value: { ...rest, isExpand, valueKey, menuStore, onChange: onValuesChange, },
     children
   })
 }

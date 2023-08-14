@@ -9,6 +9,5 @@ export const useUpdata = () => {
   const update = useCallback(() => {
     ref.current(new Date().getTime())
   }, [])
-
   return update
 }

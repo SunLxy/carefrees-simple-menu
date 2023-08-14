@@ -7,7 +7,7 @@ import { MenuItemBase, MenuItemTitleBase } from "./styles"
 import { useMenu, useUpdata } from "./hooks"
 
 export const MenuItem = (props: MenuItemProps & MenuItemChangeProps & MenuItemOtherProps) => {
-  const { prevClassName = '', level = 0, parentPath } = props
+  const { prevClassName = '', level = 0 } = props
   const _update = useUpdata()
   const { onChange, labelKey = "title", valueKey = "path", menuStore } = useMenu()
   const path = props[valueKey]

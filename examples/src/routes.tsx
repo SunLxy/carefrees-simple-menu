@@ -27,6 +27,7 @@ const Route = () => {
   return (
     <React.Fragment>
       <SimpleMenu
+        isExpand
         items={menus}
       />
     </React.Fragment>

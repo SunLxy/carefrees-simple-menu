@@ -5,6 +5,8 @@ import type { Store } from "./store"
 export interface ReducerStoreType {
   value?: string
   menuStore?: Store
+  /**展开数据*/
+  expandData?: string[]
 }
 
 export interface MenuItemChangeProps {

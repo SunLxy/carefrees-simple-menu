@@ -1,11 +1,28 @@
 import styled, { css } from "styled-components"
 
-
 export const MenuChildBase = styled.div`
 
 `
 
-export const SubMenuBodyBase = styled.div`
+export const SubMenuBodyBase = styled.div<{ $isExpand?: boolean, $height?: number, $parentIsExpand: boolean }>`
+  transition: height 300ms;
+  ${props => {
+    if (props.$parentIsExpand) {
+      return css`
+        height: 0px;
+        overflow: hidden;
+      `
+    }
+    return ''
+  }}
+  ${props => {
+    if (props.$isExpand && props.$parentIsExpand) {
+      return css`
+        height:${props.$height}px;
+      `
+    }
+    return ''
+  }}
 
 `
 
@@ -51,7 +68,6 @@ export const MenuItemTitleBase = styled.span<{ $active?: boolean }>`
   }}
 `
 export const SubMenuBase = styled.div`
-
 `
 
 export const MenuBase = styled.div`
