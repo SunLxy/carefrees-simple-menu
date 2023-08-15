@@ -3,7 +3,7 @@
  */
 import { useMemo, Fragment } from "react"
 import { MenuItemProps, MenuItemChangeProps, MenuItemOtherProps } from "./interface"
-import { MenuItemBase, MenuItemTitleBase, MenuItemBodyBase, IconBase } from "./styles"
+import { MenuItemBase, MenuItemTitleBase, MenuItemBodyBase, IconBase, RightSvgBase } from "./styles"
 import { useMenu, useUpdata } from "./hooks"
 
 export const MenuItem = (props: MenuItemProps & MenuItemChangeProps & MenuItemOtherProps) => {
@@ -24,7 +24,7 @@ export const MenuItem = (props: MenuItemProps & MenuItemChangeProps & MenuItemOt
 
   return <MenuItemBase onClick={onClick} $level={level} className={`carefrees-menu-item ${prevClassName}`}>
     <MenuItemBodyBase $active={path && value && value === path}>
-      {isSubMenu && <IconBase $active={isExpand} >🔽</IconBase> || <Fragment />}
+      {isSubMenu && <IconBase $active={isExpand} ><RightSvgBase /></IconBase> || <Fragment />}
       <MenuItemTitleBase className="carefrees-menu-item-title" >{props[labelKey]}</MenuItemTitleBase>
     </MenuItemBodyBase>
   </MenuItemBase>

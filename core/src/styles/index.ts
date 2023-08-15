@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components"
+import { ReactComponent as RightSvg } from "./right.svg"
 
 export const MenuChildBase = styled.div`
 
@@ -25,7 +26,6 @@ export const SubMenuBodyBase = styled.div<{ $isExpand?: boolean, $height?: numbe
   }} */
 `
 
-
 export const MenuItemBase = styled.div<{ $level: number }>`
   box-sizing: border-box;
   font-size: 14px;
@@ -43,12 +43,21 @@ export const MenuItemBase = styled.div<{ $level: number }>`
   `
   }}
 `
+
 export const IconBase = styled.span<{ $active?: boolean }>`
-  margin-right: 8px;
+  transition: transform 300ms;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-left: -8px;
   ${props => props.$active && css`
-      transform: rotate(-90deg);
+      transform: rotate(90deg);
   `}
+`
+export const RightSvgBase = styled(RightSvg)`
+
 `
 
 export const MenuItemTitleBase = styled.span`
