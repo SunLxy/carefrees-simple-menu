@@ -9,7 +9,7 @@ import { useMenu, useUpdata } from "./hooks"
 export const MenuItem = (props: MenuItemProps & MenuItemChangeProps & MenuItemOtherProps) => {
   const { prevClassName = '', level = 0, isSubMenu } = props
   const _update = useUpdata()
-  const { onChange, labelKey = "title", valueKey = "path", menuStore } = useMenu()
+  const { onChange, labelKey = "title", valueKey = "path", menuStore, isExpand: parentIsExpand } = useMenu()
   const path = props[valueKey]
   const value = menuStore.getValue()
   const isExpand = menuStore.isExpandData(`${path}_sub`)
@@ -24,7 +24,7 @@ export const MenuItem = (props: MenuItemProps & MenuItemChangeProps & MenuItemOt
 
   return <MenuItemBase onClick={onClick} $level={level} className={`carefrees-menu-item ${prevClassName}`}>
     <MenuItemBodyBase $active={path && value && value === path}>
-      {isSubMenu && <IconBase $active={isExpand} ><RightSvgBase /></IconBase> || <Fragment />}
+      {isSubMenu && parentIsExpand && <IconBase $active={isExpand} ><RightSvgBase /></IconBase> || <Fragment />}
       <MenuItemTitleBase className="carefrees-menu-item-title" >{props[labelKey]}</MenuItemTitleBase>
     </MenuItemBodyBase>
   </MenuItemBase>
