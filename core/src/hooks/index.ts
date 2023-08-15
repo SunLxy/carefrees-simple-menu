@@ -11,8 +11,6 @@ const Context = createContext<MenuProps & ReducerStoreType>({
   isExpand: false,
   /**选中数据*/
   value: undefined,
-  /**展开数据*/
-  expandData: []
 })
 
 export const Provider = (props: MenuProvider) => {
