@@ -15,16 +15,16 @@ export const SubMenuBodyBase = styled.div<{ $isExpand?: boolean, $height?: numbe
     }
     return ''
   }}
-  ${props => {
+  /* ${props => {
     if (props.$isExpand && props.$parentIsExpand) {
       return css`
         height:${props.$height}px;
       `
     }
     return ''
-  }}
-
+  }} */
 `
+
 
 export const MenuItemBase = styled.div<{ $level: number }>`
   box-sizing: border-box;
@@ -33,6 +33,7 @@ export const MenuItemBase = styled.div<{ $level: number }>`
   border-left: 1px solid #efefef;
   border-right: 1px solid #efefef;
   border-bottom: 1px solid #efefef;
+
   cursor: pointer;
   ${props => {
     const { $level } = props
@@ -42,10 +43,25 @@ export const MenuItemBase = styled.div<{ $level: number }>`
   `
   }}
 `
+export const IconBase = styled.span<{ $active?: boolean }>`
+  margin-right: 8px;
+  box-sizing: border-box;
+  ${props => props.$active && css`
+      transform: rotate(-90deg);
+  `}
+`
 
-export const MenuItemTitleBase = styled.span<{ $active?: boolean }>`
+export const MenuItemTitleBase = styled.span`
+  flex: 1;
+`
+export const MenuItemBodyBase = styled.div<{ $active?: boolean }>`
   position: relative;
-  transition:all 300ms;
+  box-sizing: border-box;
+  transition: padding-left 300ms;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
 
   ${props => {
     const { $active } = props
@@ -67,6 +83,7 @@ export const MenuItemTitleBase = styled.span<{ $active?: boolean }>`
   `
   }}
 `
+
 export const SubMenuBase = styled.div`
 `
 

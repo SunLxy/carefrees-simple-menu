@@ -32,9 +32,10 @@ export const SubMenu = (props: SubMenuProps & MenuItemChangeProps & MenuItemOthe
     {titleItem}
     <SubMenuBodyBase
       ref={ref}
-      $isExpand={isExpand}
+      // $isExpand={isExpand}
       $parentIsExpand={parentIsExpand}
-      $height={ref?.current?.scrollHeight || 0}
+      // $height={ref?.current?.scrollHeight || 0}
+      style={isExpand && parentIsExpand ? { height: ref?.current?.scrollHeight || 0 } : {}}
       className="carefrees-sub-body-menu-item"
     >
       {body}

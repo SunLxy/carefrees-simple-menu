@@ -40,12 +40,14 @@ export class Store {
 
   //=============================展开数据===================================
 
-  toggles = (path: string) => {
+  toggles = (path: string, child?: string) => {
     if (this.isExpandData(path)) {
       this.removeExpandData(path)
     } else {
       this.addExpandData(path)
     }
+    if (child)
+      this.notice(child)
   }
 
   /**添加展开数据*/

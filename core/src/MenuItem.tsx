@@ -1,17 +1,18 @@
 /*
  * @Description: 菜单的 每一项
  */
-import { useMemo } from "react"
+import { useMemo, Fragment } from "react"
 import { MenuItemProps, MenuItemChangeProps, MenuItemOtherProps } from "./interface"
-import { MenuItemBase, MenuItemTitleBase } from "./styles"
+import { MenuItemBase, MenuItemTitleBase, MenuItemBodyBase, IconBase } from "./styles"
 import { useMenu, useUpdata } from "./hooks"
 
 export const MenuItem = (props: MenuItemProps & MenuItemChangeProps & MenuItemOtherProps) => {
-  const { prevClassName = '', level = 0 } = props
+  const { prevClassName = '', level = 0, isSubMenu } = props
   const _update = useUpdata()
   const { onChange, labelKey = "title", valueKey = "path", menuStore } = useMenu()
   const path = props[valueKey]
   const value = menuStore.getValue()
+  const isExpand = menuStore.isExpandData(`${path}_sub`)
   /**注册数据更新*/
   useMemo(() => { menuStore.register(path, _update) }, [path])
 
@@ -22,6 +23,9 @@ export const MenuItem = (props: MenuItemProps & MenuItemChangeProps & MenuItemOt
   }
 
   return <MenuItemBase onClick={onClick} $level={level} className={`carefrees-menu-item ${prevClassName}`}>
-    <MenuItemTitleBase $active={path && value && value === path} className="carefrees-menu-item-title" >{props[labelKey]}</MenuItemTitleBase>
+    <MenuItemBodyBase $active={path && value && value === path}>
+      {isSubMenu && <IconBase $active={isExpand} >🔽</IconBase> || <Fragment />}
+      <MenuItemTitleBase className="carefrees-menu-item-title" >{props[labelKey]}</MenuItemTitleBase>
+    </MenuItemBodyBase>
   </MenuItemBase>
 }
