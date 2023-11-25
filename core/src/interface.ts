@@ -73,6 +73,10 @@ export interface MenuProps {
    * @default path
   */
   valueKey?: string
+  /**
+  * 排序取值字段
+  */
+  sortKey?: string
   menu?: Store
 }
 

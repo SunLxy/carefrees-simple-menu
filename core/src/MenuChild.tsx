@@ -8,14 +8,15 @@ import { useMenu } from "./hooks"
 
 export const MenuChild = (props: MenuChildProps & MenuItemOtherProps) => {
   const { children = [], level = 0, parentPath = [], prevClassName = '' } = props
-  const { valueKey = "path" } = useMenu()
+  const { valueKey = "path", sortKey } = useMenu()
 
   const getParentPath = useCallback((path: string) => {
     return (parentPath || []).concat([path])
   }, [parentPath])
 
   const child = useMemo(() => {
-    return children.map((item, index) => {
+    const newChildData = sortKey ? (children || []).sort((a, b) => a?.[sortKey] - b?.[sortKey]) : children
+    return newChildData.map((item, index) => {
       const parentPath = getParentPath(item[valueKey])
       const newLevel = level + 1
       if (item && Array.isArray(item.children) && item.children.length) {
