@@ -1,9 +1,9 @@
 {
   "name": "examples",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "dependencies": {
-    "@carefrees/simple-menu": "0.0.7",
+    "@carefrees/simple-menu": "0.0.8",
     "react": "~18.2.0",
     "react-dom": "~18.2.0"
   },
