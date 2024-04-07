@@ -181,6 +181,14 @@ export class MenuInstanceBase {
     this.callBack = callBack
   }
 
+  /**销毁数据*/
+  destroy = () => {
+    this.menuComponentMap.clear();
+    this.subMenuComponentMap.clear();
+    this.expandData.clear();
+    this.value = undefined
+    this.valueItem = undefined
+  }
 }
 
 export const useMenuInstance = (menu?: MenuInstanceBase) => {

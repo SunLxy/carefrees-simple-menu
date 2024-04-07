@@ -22,7 +22,7 @@ export const MenuItem = (props: MenuItemProps) => {
   const isExpand = menuInstance.isExpandData(path)
 
   const [menuItemInstance] = useState(new MenuItemInstanceBase())
-  useMemo(() => menuItemInstance.ctor(path, menuInstance, parentPath, item), [path, parentPath])
+  useMemo(() => menuItemInstance.ctor(path, menuInstance, parentPath, item), [item, path, parentPath])
   menuItemInstance.updated = _updated;
 
   const onClick: React.MouseEventHandler<HTMLDivElement> = (event) => {
@@ -38,7 +38,7 @@ export const MenuItem = (props: MenuItemProps) => {
   useEffect(() => {
     const unMount = menuInstance.register(path, menuItemInstance, false)
     return () => unMount()
-  }, [])
+  }, [path])
 
   return (<MenuItemBase $level={level} onClick={onClick} className={`carefrees-menu-item ${prevClassName}`} >
     <MenuItemBodyBase className="carefrees-menu-item-body" $active={path && newValueItem.value && newValueItem.value === path}>

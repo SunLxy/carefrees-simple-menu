@@ -20,13 +20,12 @@ export const SubMenuItem = (props: SubMenuItemProps) => {
   const path = item[valueKey]
   const [menuItemInstance] = useState(new MenuItemInstanceBase())
   menuItemInstance.subMenu = ref
-
-  useMemo(() => menuItemInstance.ctor(path, menuInstance, parentPath, item), [path, parentPath])
+  useMemo(() => menuItemInstance.ctor(path, menuInstance, parentPath, item), [item, path, parentPath])
 
   useEffect(() => {
     const unMount = menuInstance.register(path, menuItemInstance, true)
     return () => unMount()
-  }, [])
+  }, [path])
 
   const titleItem = useMemo(() => {
     return <MenuItem isSubMenu item={item} level={level} parentPath={parentPath} />
