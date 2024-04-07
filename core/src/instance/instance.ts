@@ -65,7 +65,14 @@ export class MenuInstanceBase {
 
   /**初始化*/
   ctor = (value?: string | undefined) => {
+    const preValue = this.value
     this.value = value
+    if (preValue !== value) {
+      /**把上一次的组件进行更新*/
+      this.notice(preValue)
+      /**更新当前选中组件*/
+      this.notice(value)
+    }
   }
 
   /**把对应更新单个组件的方法进行存储*/
@@ -97,6 +104,11 @@ export class MenuInstanceBase {
 
   /**更新值*/
   updateValue(value: string | undefined) {
+    /**值相等不用刷新*/
+    if (this.value === value) {
+      return
+    }
+
     const prevPath = this.value
     this.value = value
     const item = this.menuComponentMap.get(value)
