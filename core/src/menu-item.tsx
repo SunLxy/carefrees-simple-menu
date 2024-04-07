@@ -42,7 +42,7 @@ export const MenuItem = (props: MenuItemProps) => {
 
   return (<MenuItemBase $level={level} onClick={onClick} className={`carefrees-menu-item ${prevClassName}`} >
     <MenuItemBodyBase className="carefrees-menu-item-body" $active={path && newValueItem.value && newValueItem.value === path}>
-      {isSubMenu && parentIsExpand && <MenuItemIconBase $active={isExpand} ><MenuItemIconRightSvgBase /></MenuItemIconBase> || <Fragment />}
+      {isSubMenu && parentIsExpand && <MenuItemIconBase className="carefrees-menu-item-icon-expand" $active={isExpand} ><MenuItemIconRightSvgBase /></MenuItemIconBase> || <Fragment />}
       <MenuItemTextBase className="carefrees-menu-item-title" >{label}</MenuItemTextBase>
     </MenuItemBodyBase>
   </MenuItemBase>)

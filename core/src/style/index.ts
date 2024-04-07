@@ -68,7 +68,6 @@ export const MenuItemIconRightSvgBase = styled(RightSvg)`
 
 `
 
-
 export const MenuItemTextBase = styled.div`
   flex: 1;
 `
@@ -82,7 +81,7 @@ export const SubMenuItemBase = styled.div`
 `
 
 export const SubMenuItemBodyBase = styled.div<{ $parentIsExpand: boolean }>`
- transition: height 300ms;
+  transition: height 300ms;
   ${props => {
     if (props.$parentIsExpand) {
       return css`
