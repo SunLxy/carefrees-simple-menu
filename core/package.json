@@ -1,6 +1,6 @@
 {
   "name": "@carefrees/simple-menu",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "author": "SunLxy <1011771396@qq.com>",
   "homepage": "",
@@ -19,9 +19,9 @@
     "watch": "tsbb watch"
   },
   "devDependencies": {
-    "@types/styled-components": "5.1.34",
     "@types/react": "~18.2.15",
     "@types/react-dom": "~18.2.7",
+    "@types/styled-components": "5.1.34",
     "react": "~18.2.0",
     "react-dom": "~18.2.0"
   },
