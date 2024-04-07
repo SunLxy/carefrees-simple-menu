@@ -100,6 +100,7 @@ export class MenuInstanceBase {
     const prevPath = this.value
     this.value = value
     const item = this.menuComponentMap.get(value)
+    this.valueItem = item.item
     this.callBack.onChange?.(value, item?.item)
     /**把上一次的组件进行更新*/
     this.notice(prevPath)
