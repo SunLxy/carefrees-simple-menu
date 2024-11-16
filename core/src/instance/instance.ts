@@ -232,7 +232,7 @@ export class MenuInstanceBase {
     const levels = [...this.subMenuLevelMap.keys()].map((i) => Number(i)).sort()
     for (let index = 0; index < levels.length; index++) {
       const level = levels[index];
-      const subMenus = [...this.subMenuComponentMap.values().filter((it) => it.level === level)]
+      const subMenus = [...this.subMenuComponentMap.values()].filter((it) => it.level === level)
       for (let c = 0; c < subMenus.length; c++) {
         const menuItem = subMenus[c];
         await this.nextTime(() => this.addExpandData(menuItem.path), time);
