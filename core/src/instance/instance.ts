@@ -1,5 +1,5 @@
-import { useRef } from "react"
-import { MenuItemType } from "./../interface"
+import { useRef, createRef } from "react"
+import { MenuItemType, CallBackType } from "./../interface"
 
 export class MenuItemInstanceBase {
   /**当前路径*/
@@ -11,7 +11,7 @@ export class MenuItemInstanceBase {
   /**当前对象*/
   item: MenuItemType
   /**节点*/
-  subMenu?: React.MutableRefObject<HTMLDivElement>;
+  subMenu?: React.MutableRefObject<HTMLDivElement> = createRef();
   /**节点实例*/
   menuInstance: MenuInstanceBase;
   /**更新父级节点高度*/
@@ -45,10 +45,6 @@ export class MenuItemInstanceBase {
   }
 }
 
-interface CallBackType {
-  onChange?: (value: string, valueItem: MenuItemType) => void
-}
-
 export class MenuInstanceBase {
   /**菜单组件*/
   private menuComponentMap: Map<string, MenuItemInstanceBase> = new Map([])
@@ -60,6 +56,9 @@ export class MenuInstanceBase {
   private value: string | undefined = undefined
   /**选中值对象*/
   private valueItem: any = undefined
+
+  /**数据*/
+  public items: MenuItemType[] = []
 
   private callBack: CallBackType
 

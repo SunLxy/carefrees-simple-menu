@@ -20,7 +20,6 @@ export const MenuItem = (props: MenuItemProps) => {
   const path = item[valueKey]
   const label = item[labelKey]
   const isExpand = menuInstance.isExpandData(path)
-
   const [menuItemInstance] = useState(new MenuItemInstanceBase())
   useMemo(() => menuItemInstance.ctor(path, menuInstance, parentPath, item), [item, path, parentPath])
   menuItemInstance.updated = _updated;

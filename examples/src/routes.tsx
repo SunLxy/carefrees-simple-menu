@@ -12,9 +12,19 @@ const menus = [
         title: "展示2-3", path: "/test2-3",
         children: [
           { title: "展示2-3-1", path: "/test2-3-1", },
-          { title: "展示2-3-2", path: "/test2-3-2", },
+          {
+            title: "展示2-3-2", path: "/test2-3-2",
+            children: [
+              {
+                title: "展示2-3-2-1", path: "/test2-3-2-1",
+                children: [
+                  { title: "展示2-3-2-1-1", path: "/test2-3-2-1-1", },
+                  { title: "展示2-3-2-1-2", path: "/test2-3-2-1-2", },
+                ]
+              },
+            ]
+          },
         ]
-
       },
       { title: "展示2-4", path: "/test2-4" },
     ]

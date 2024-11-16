@@ -16,21 +16,17 @@ interface SubMenuItemProps {
 export const SubMenuItem = (props: SubMenuItemProps) => {
   const { item, parentPath, level = 0, prevClassName = '' } = props
   const { valueKey, menuInstance, isExpand: parentIsExpand } = useMenuInstanceStore()
-  const ref = useRef<HTMLDivElement>()
   const path = item[valueKey]
-  const [menuItemInstance] = useState(new MenuItemInstanceBase())
-  menuItemInstance.subMenu = ref
-  useMemo(() => menuItemInstance.ctor(path, menuInstance, parentPath, item), [item, path, parentPath])
+  const [menuItemInstance] = useState(new MenuItemInstanceBase());
 
+  useMemo(() => menuItemInstance.ctor(path, menuInstance, parentPath, item), [item, path, parentPath])
   useEffect(() => {
     const unMount = menuInstance.register(path, menuItemInstance, true)
     return () => unMount()
   }, [path])
-
   const titleItem = useMemo(() => {
     return <MenuItem isSubMenu item={item} level={level} parentPath={parentPath} />
   }, [item])
-
   const body = useMemo(() => {
     return <LoopMenuItem items={item.children} level={level} parentPath={parentPath} />
   }, [item.children])
@@ -40,7 +36,7 @@ export const SubMenuItem = (props: SubMenuItemProps) => {
     {item?.children && <SubMenuItemBodyBase
       $parentIsExpand={parentIsExpand}
       className="carefrees-sub-menu-item-body"
-      ref={ref}
+      ref={menuItemInstance.subMenu}
     >
       {body}
     </SubMenuItemBodyBase>}

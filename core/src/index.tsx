@@ -1,19 +1,17 @@
-import { Provider, ProviderProps } from "./instance/hooks"
+import { Provider } from "./instance/hooks"
 import { LoopMenuItem } from "./loop-menu-item"
 import { MenuBase } from "./style"
 import { useMenuInstance, MenuInstanceBase } from "./instance/instance"
-import { MenuItemType } from "./interface"
+import { MenuProps } from "./interface"
 import { forwardRef } from "react"
-
-interface MenuProps extends Omit<ProviderProps, 'children'> {
-  items?: MenuItemType[]
-  className?: string
-}
+export * from "./interface";
+export * from "./instance/hooks";
+export * from "./instance/instance";
 
 const SimpleMenuBase = forwardRef((props: MenuProps, ref: React.ForwardedRef<MenuInstanceBase>) => {
   const { items = [], className = '', ...rest } = props
 
-  return <Provider {...rest} ref={ref}>
+  return <Provider {...rest} items={items} ref={ref}>
     <MenuBase className={`carefrees-menu ${className}`}>
       <LoopMenuItem items={items} />
     </MenuBase>
