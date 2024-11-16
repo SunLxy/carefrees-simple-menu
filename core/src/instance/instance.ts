@@ -6,6 +6,8 @@ export class MenuItemInstanceBase {
   path: string
   /**更新当前组件方法*/
   updated: React.MutableRefObject<Function>;
+  /**层级*/
+  level: number;
   /**父级路径*/
   parentPath: string[]
   /**当前对象*/
@@ -56,6 +58,17 @@ export class MenuInstanceBase {
   private value: string | undefined = undefined
   /**选中值对象*/
   private valueItem: any = undefined
+
+  /**全部折叠或全部展开状态*/
+  private status: "none" | "expandLoading" | "removeLoading" = 'none'
+
+  /**父级菜单嵌套层级*/
+  public subMenuLevelMap = new Map([]);
+
+  /**设置层级*/
+  setMaxLevel = (level: number) => {
+    this.subMenuLevelMap.set(level, true)
+  }
 
   /**数据*/
   public items: MenuItemType[] = []
@@ -140,9 +153,13 @@ export class MenuInstanceBase {
   noticeExpand = (path: string) => {
     const menuItemInstance = this.subMenuComponentMap.get(path)
     if (menuItemInstance) {
+      /**更新当前的组件高度，并返回当前组件高度*/
       const preHeight = menuItemInstance.updatedHeight();
+      /**判断展开还是隐藏*/
       const isExpand = this.isExpandData(path)
+      /**获取父级数据*/
       const parentPath = (menuItemInstance.parentPath || []).filter(it => it !== path).reverse()
+      /**循环父级数据并，更新每一个父级高度值*/
       for (let index = 0; index < parentPath.length; index++) {
         const itemPath = parentPath[index];
         const parentInstance = this.subMenuComponentMap.get(itemPath)
@@ -154,9 +171,12 @@ export class MenuInstanceBase {
 
   /**添加展开数据*/
   addExpandData = (path: string) => {
-    this.expandData.set(path, true)
-    this.noticeExpand(path)
-    this.notice(path)
+    const value = this.expandData.get(path)
+    if (!value) {
+      this.expandData.set(path, true)
+      this.noticeExpand(path)
+      this.notice(path)
+    }
   }
 
   /**移除展开数据*/
@@ -165,6 +185,7 @@ export class MenuInstanceBase {
     this.noticeExpand(path)
     this.notice(path)
   }
+
   /**获取所有展开数据*/
   getExpandData = () => {
     return this.expandData.keys()
@@ -185,9 +206,55 @@ export class MenuInstanceBase {
     this.menuComponentMap.clear();
     this.subMenuComponentMap.clear();
     this.expandData.clear();
+    this.subMenuLevelMap.clear();
     this.value = undefined
     this.valueItem = undefined
   }
+
+  /**延迟时间下一步执行*/
+  public nextTime = (fun: Function, time: number = 200) => {
+    const newTime = typeof time === 'number' ? time : 200
+    return new Promise((resolve) => {
+      fun()
+      const timer = setTimeout(() => {
+        clearTimeout(timer)
+        resolve(true)
+      }, newTime)
+    })
+  }
+
+  /**展开所有*/
+  expandAll = async (time: number = 200) => {
+    if (this.status !== "none") {
+      return
+    }
+    this.status = 'expandLoading'
+    const levels = [...this.subMenuLevelMap.keys()].map((i) => Number(i)).sort()
+    for (let index = 0; index < levels.length; index++) {
+      const level = levels[index];
+      const subMenus = [...this.subMenuComponentMap.values().filter((it) => it.level === level)]
+      for (let c = 0; c < subMenus.length; c++) {
+        const menuItem = subMenus[c];
+        await this.nextTime(() => this.addExpandData(menuItem.path), time);
+      }
+    }
+    this.status = 'none'
+  }
+
+  /**隐藏所有*/
+  removeExpandAll = async (time: number = 200) => {
+    if (this.status !== "none") {
+      return
+    }
+    this.status = "removeLoading"
+    const subMenus = [...this.subMenuComponentMap.values()]
+    for (let c = 0; c < subMenus.length; c++) {
+      const menuItem = subMenus[c];
+      await this.nextTime(() => this.removeExpandData(menuItem.path), time);
+    }
+    this.status = "none"
+  }
+
 }
 
 export const useMenuInstance = (menu?: MenuInstanceBase) => {

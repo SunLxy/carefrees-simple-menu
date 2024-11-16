@@ -2,7 +2,7 @@ import { SubMenuItemBase, SubMenuItemBodyBase } from "./style"
 import { MenuItemType } from "./interface"
 import { useMenuInstanceStore, } from "./instance/hooks"
 import { MenuItemInstanceBase } from "./instance/instance"
-import { useEffect, useMemo, useState, useRef } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { LoopMenuItem } from "./loop-menu-item"
 import { MenuItem } from "./menu-item"
 
@@ -18,8 +18,11 @@ export const SubMenuItem = (props: SubMenuItemProps) => {
   const { valueKey, menuInstance, isExpand: parentIsExpand } = useMenuInstanceStore()
   const path = item[valueKey]
   const [menuItemInstance] = useState(new MenuItemInstanceBase());
+  menuItemInstance.level = level;
 
   useMemo(() => menuItemInstance.ctor(path, menuInstance, parentPath, item), [item, path, parentPath])
+  menuInstance.setMaxLevel(level);
+
   useEffect(() => {
     const unMount = menuInstance.register(path, menuItemInstance, true)
     return () => unMount()
