@@ -14,8 +14,15 @@ export class MenuItemInstanceBase {
   item: MenuItemType
   /**节点*/
   subMenu?: React.MutableRefObject<HTMLDivElement> = createRef();
+  /**节点*/
+  subMenuWarp?: React.MutableRefObject<HTMLDivElement> = createRef();
   /**节点实例*/
   menuInstance: MenuInstanceBase;
+  /**移入悬浮展示
+   * @default false
+  */
+  isHover: boolean = false
+  isShow: boolean = false
   /**更新父级节点高度*/
   updatedHeight = (preHeight: number = 0, childIsExpand?: boolean) => {
     const isExpand = this.menuInstance.isExpandData(this.path)
@@ -45,6 +52,23 @@ export class MenuItemInstanceBase {
     this.menuInstance = menuInstance
     this.item = item
   }
+
+  /**移入*/
+  public onMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (this.isHover && !this.isShow) {
+      this.isShow = true
+      this.subMenu.current.style.display = 'block'
+      this.subMenu.current.style.left = `${this.subMenuWarp.current.clientWidth}px`;
+    }
+  }
+  /**移除*/
+  public onMouseLeave = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (this.isHover) {
+      this.isShow = false
+      this.subMenu.current.style.display = 'none'
+      this.subMenu.current.style.left = `0px`;
+    }
+  }
 }
 
 export class MenuInstanceBase {
@@ -62,6 +86,10 @@ export class MenuInstanceBase {
   public valueKey: string = 'path'
   public sortKey?: string
   public labelKey?: string = 'title'
+  /**移入悬浮展示
+   * @default false
+  */
+  public isHover?: boolean = false
 
   /**全部折叠或全部展开状态*/
   private status: "none" | "expandLoading" | "removeLoading" = 'none'

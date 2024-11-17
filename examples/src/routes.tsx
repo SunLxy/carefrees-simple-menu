@@ -55,15 +55,16 @@ const Route = () => {
   const [menu] = SimpleMenu.useMenuInstance()
   console.log(menu)
   return (
-    <React.Fragment>
+    <div style={{ width: 200 }}>
       <button onClick={() => menu.expandAll()} >全部展开</button>
       <button onClick={() => menu.removeExpandAll()} >全部隐藏</button>
       <SimpleMenu
+        isHover
         menu={menu}
         isExpand
         items={menus}
       />
-    </React.Fragment>
+    </div>
   );
 };
 export default Route;

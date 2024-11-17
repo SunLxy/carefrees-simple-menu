@@ -3,17 +3,20 @@ import { ReactComponent as RightSvg } from "./right.svg"
 
 // ================================menu-item====================================
 
-export const MenuItemBase = styled.div<{ $level: number }>`
+export const MenuItemBase = styled.div<{ $level: number, $isHover?: boolean }>`
   box-sizing: border-box;
   font-size: 14px;
   padding: 5px 5px;
   border-left: 1px solid #efefef;
   border-right: 1px solid #efefef;
   border-bottom: 1px solid #efefef;
-
   cursor: pointer;
+
   ${props => {
-    const { $level } = props
+    const { $level, $isHover } = props
+    if ($isHover) {
+      return ``
+    }
     return css`
     box-sizing: border-box;
     padding-left: ${$level * 10}px;
@@ -77,19 +80,34 @@ export const MenuItemTextBase = styled.div`
 
 
 export const SubMenuItemBase = styled.div`
-
+  position: relative;
 `
 
-export const SubMenuItemBodyBase = styled.div<{ $parentIsExpand: boolean }>`
+export const SubMenuItemBodyBase = styled.div<{ $parentIsExpand: boolean, $isHover?: boolean }>`
   transition: height 300ms;
   ${props => {
-    if (props.$parentIsExpand) {
+    if (props.$parentIsExpand && !props.$isHover) {
       return css`
         height: 0px;
         overflow: hidden;
       `
     }
     return ''
+  }}
+  ${props => {
+    if (props.$isHover) {
+      return css`
+        border-top: 1px solid #efefef;
+        position:absolute;
+        display: none;
+        min-width: 200px;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        width: 0px;
+      `
+    }
+    return ""
   }}
 `
 

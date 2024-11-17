@@ -35,6 +35,10 @@ export interface ContextType {
    * @default false
   */
   isExpand?: boolean
+  /**移入悬浮展示
+   * @default false
+  */
+  isHover?: boolean
 }
 
 export interface ProviderProps extends Omit<ContextType, 'menuInstance'> {
