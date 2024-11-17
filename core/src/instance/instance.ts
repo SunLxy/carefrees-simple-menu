@@ -23,6 +23,7 @@ export class MenuItemInstanceBase {
   */
   isHover: boolean = false
   isShow: boolean = false
+
   /**更新父级节点高度*/
   updatedHeight = (preHeight: number = 0, childIsExpand?: boolean) => {
     const isExpand = this.menuInstance.isExpandData(this.path)
@@ -90,9 +91,11 @@ export class MenuInstanceBase {
    * @default false
   */
   public isHover?: boolean = false
-
+  /**大小*/
+  public size?: "small" | 'middle' | "large" = 'small'
   /**全部折叠或全部展开状态*/
   private status: "none" | "expandLoading" | "removeLoading" = 'none'
+
 
   /**父级菜单嵌套层级*/
   public subMenuLevelMap = new Map([]);

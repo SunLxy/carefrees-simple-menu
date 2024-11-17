@@ -3,14 +3,37 @@ import { ReactComponent as RightSvg } from "./right.svg"
 
 // ================================menu-item====================================
 
-export const MenuItemBase = styled.div<{ $level: number, $isHover?: boolean }>`
+export const MenuItemBase = styled.div<{ $level: number, $isHover?: boolean, $size?: "small" | 'middle' | "large" }>`
   box-sizing: border-box;
   font-size: 14px;
   padding: 5px 5px;
   border-left: 1px solid #efefef;
   border-right: 1px solid #efefef;
   border-bottom: 1px solid #efefef;
+  height: 35px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  flex-direction: row;
+  ${props => {
+    if (props.$size === 'small') {
+      return css`
+        height: 35px;
+      `
+    }
+    if (props.$size === 'large') {
+      return css`
+        height: 55px;
+      `
+    }
+    if (props.$size === 'middle') {
+      return css`
+        height: 45px;
+      `
+    }
+    return ''
+  }}
 
   ${props => {
     const { $level, $isHover } = props
@@ -32,7 +55,7 @@ export const MenuItemBodyBase = styled.div<{ $active: boolean }>`
   flex-direction: row;
   align-items: center;
   box-sizing: border-box;
-
+  width: 100%;
   ${props => {
     const { $active } = props
     return css`

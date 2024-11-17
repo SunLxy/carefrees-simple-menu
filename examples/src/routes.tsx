@@ -59,7 +59,8 @@ const Route = () => {
       <button onClick={() => menu.expandAll()} >全部展开</button>
       <button onClick={() => menu.removeExpandAll()} >全部隐藏</button>
       <SimpleMenu
-        isHover
+        // size="middle"
+        // isHover
         menu={menu}
         isExpand
         items={menus}

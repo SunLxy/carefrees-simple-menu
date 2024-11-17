@@ -39,6 +39,8 @@ export interface ContextType {
    * @default false
   */
   isHover?: boolean
+  /**大小*/
+  size?: "small" | 'middle' | "large"
 }
 
 export interface ProviderProps extends Omit<ContextType, 'menuInstance'> {

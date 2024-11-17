@@ -7,7 +7,10 @@ const Context = createContext<ContextType>({ menuInstance: new MenuInstanceBase(
 export const useMenuInstanceStore = () => useContext(Context)
 
 export const Provider = forwardRef((props: ProviderProps, ref: React.ForwardedRef<MenuInstanceBase>) => {
-  const { items, menu, value, onChange, children, labelKey = 'title', valueKey = 'path', sortKey, isExpand, isHover = false } = props
+  const {
+    items, menu, value, onChange, children, labelKey = 'title',
+    valueKey = 'path', sortKey, isExpand, isHover = false, size = 'small'
+  } = props
   const [menuInstance] = useMenuInstance(menu)
   useMemo(() => menuInstance.ctor(value), [value])
   menuInstance.setCallBack({ onChange })
@@ -16,9 +19,10 @@ export const Provider = forwardRef((props: ProviderProps, ref: React.ForwardedRe
   menuInstance.sortKey = sortKey;
   menuInstance.labelKey = labelKey;
   menuInstance.isHover = isHover;
+  menuInstance.size = size;
   useImperativeHandle(ref, () => menuInstance);
 
-  return <Context.Provider value={{ value, menuInstance, labelKey, valueKey, sortKey, isExpand, isHover }}>
+  return <Context.Provider value={{ size, value, menuInstance, labelKey, valueKey, sortKey, isExpand, isHover }}>
     {children}
   </Context.Provider>
 })

@@ -14,7 +14,7 @@ export interface MenuItemProps {
 
 export const MenuItem = (props: MenuItemProps) => {
   const { item, parentPath, prevClassName = '', level = 0, isSubMenu = false, } = props
-  const { labelKey, valueKey, menuInstance, isExpand: parentIsExpand, isHover = false } = useMenuInstanceStore()
+  const { labelKey, valueKey, menuInstance, isExpand: parentIsExpand, isHover = false, size = 'small' } = useMenuInstanceStore()
   const newValueItem = menuInstance.getValue()
   const _updated = useUpdata()
   const path = item[valueKey]
@@ -40,7 +40,13 @@ export const MenuItem = (props: MenuItemProps) => {
     return () => unMount()
   }, [path])
 
-  return (<MenuItemBase $level={level} $isHover={isHover} onClick={onClick} className={`carefrees-menu-item ${prevClassName}`} >
+  return (<MenuItemBase
+    $size={size}
+    $level={level}
+    $isHover={isHover}
+    onClick={onClick}
+    className={`carefrees-menu-item ${prevClassName}`}
+  >
     <MenuItemBodyBase className="carefrees-menu-item-body" $active={path && newValueItem.value && newValueItem.value === path}>
       <MenuItemTextBase className="carefrees-menu-item-title" >{label}</MenuItemTextBase>
       {isSubMenu && parentIsExpand && <MenuItemIconBase className="carefrees-menu-item-icon-expand" $active={isExpand} ><MenuItemIconRightSvgBase /></MenuItemIconBase> || <Fragment />}
