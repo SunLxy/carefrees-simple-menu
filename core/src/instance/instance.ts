@@ -59,6 +59,10 @@ export class MenuInstanceBase {
   /**选中值对象*/
   private valueItem: any = undefined
 
+  public valueKey: string = 'path'
+  public sortKey?: string
+  public labelKey?: string = 'title'
+
   /**全部折叠或全部展开状态*/
   private status: "none" | "expandLoading" | "removeLoading" = 'none'
 

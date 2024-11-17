@@ -12,6 +12,9 @@ export const Provider = forwardRef((props: ProviderProps, ref: React.ForwardedRe
   useMemo(() => menuInstance.ctor(value), [value])
   menuInstance.setCallBack({ onChange })
   menuInstance.items = items;
+  menuInstance.valueKey = valueKey;
+  menuInstance.sortKey = sortKey;
+  menuInstance.labelKey = labelKey;
   useImperativeHandle(ref, () => menuInstance);
 
   return <Context.Provider value={{ value, menuInstance, labelKey, valueKey, sortKey, isExpand }}>
